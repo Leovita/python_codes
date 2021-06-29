@@ -1,0 +1,41 @@
+import threading
+from threading import Lock
+
+class threadCovid(threading.Thread):
+
+    lock_ = threading.Lock()
+    tot_deaths = 0
+    # tot_infected = 2107166
+    # tot_healed = 1463111
+
+    def __init__(self, file, list = []) -> None:
+        threading.Thread.__init__(self)
+        self.file = file
+        self.list = list
+
+    def covid_stats(self):
+        file_to_open = "covid_data_" + str(self.file) + "_2021.csv"
+        with open(str(file_to_open)) as csvfile:
+            for line in csvfile:
+                line = line.strip()
+                line = line.split(",")
+                self.list.append(line)
+            del self.list[0]
+        print(self.list)
+
+        for row in range(1, len(rows)):
+            with threadCovid.lock_:
+                threadCovid.tot_deaths += int(rows[row][1])
+                #print(rows[row][1] +  "-->" + str(threadCovid.tot_deaths))
+                # threadCovid.tot_healed += int(rows[row][2])
+                # threadCovid.tot_infected += int(rows[row][3])
+
+    def __repr__(self) -> str:
+        print(threadCovid.tot_deaths)
+if __name__ == "__main__":
+    list_months = ["jan", "feb", "mar","apr"]
+    for i in range(4):
+        coviddi_thread = threadCovid("apr")
+        coviddi_thread.covid_stats()
+
+    coviddi_thread.__repr__()
